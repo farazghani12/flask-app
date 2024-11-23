@@ -1,6 +1,20 @@
-FROM python:3-alpine3.15
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
+
+# Set the working directory in the container
 WORKDIR /app
+
+# Copy the current directory contents into the container
 COPY . /app
-RUN pip install -r requirements.txt
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Make port 3000 available to the world outside this container
 EXPOSE 3000
-CMD python ./index.py
+
+# Define environment variable
+ENV FLASK_APP=index.py
+
+# Run the Flask app
+CMD ["python", "index.py"]
